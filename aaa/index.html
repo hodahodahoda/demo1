@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --main-black: #2c2c2c;
+      --main-blue: #1E268D;
+      --sub-blue: #1d81cb;
+      --main-white: #ffffff;
+      --main-white-content-rgb: 44, 44, 44;
+      --main-yellow: #f48c04;
+      --border-white: #d9d9d9;
+      --bg-blue: #f5f9ff;
+    }
+
+    /*
+    base
+    */
+    body {
+      margin: 0;
+      /*margin-top: 120px;*/
+      font-size: 20px;
+      color: var(--main-black);
+      font-family: "Yu Gothic", "游ゴシック", YuGothic, sans-serif;
+    }
+    h1,h2,h3,h4,p {
+      margin: 0;
+    }
+    a {
+      text-decoration: none;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    section {
+      padding-top: 30px;
+    }
+    .d-sp {
+      display: none;
+    }
+    @media screen and (max-width: 768px) {
+      .d-sp {
+        display: block;
+      }
+    }
+
+    /*
+    loading
+    */
+    #loading-screen {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.9);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url(img/footer-bg.webp);
+    }
+
+    /*
+    header
+    */
+    .header {
+      position: fixed;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      background-color: var(--main-white);
+    }
+    .inner {
+      width: 100%;
+    }
+    .fixedHeader {
+      position: fixed!important;
+      top: 0!important;
+      left: 0!important;
+      z-index: 10!important;
+      width: 100%!important;
+    }
+    .header-pc {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.05);
+    }
+    .header-logo {
+      display: block;
+      margin: 0;
+      width: 317px;
+      height: 120px;
+    }
+    .header-logo > a {
+      display: block;
+      color: transparent;
+    }
+    .header-logo img {
+      width: 317px;
+      height: 120px;
+    }
+    .header .right {
+      display: flex;
+    }
+    .header-navlist {
+      margin: 0 10px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    /* .header-navitem {} */
+    .header-navitem > a {
+      text-align: center;
+      display: block;
+      padding: 10px;
+      color: var(--main-black);
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 0.64px;
+      font-weight: 500;
+      border-bottom: 2px solid transparent;
+      transition: border-bottom .25s;
+      margin-right: 54px;
+    }
+    .header-navitem > a:hover {
+      border-bottom: 2px solid var(--main-blue);
+    }
+    .header .info {
+      padding: 0 24px;
+    }
+    .header-pc .info .tel {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1.04px;
+      line-height: 1;
+      color: var(--main-blue);
+    }
+    .header .info .tel span {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.72px;
+    }
+    .header .info .time {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.64px;
+      line-height: 1;
+    }
+    .hamburger {
+      display: none;
+    }
+    #mask {
+      display: none;
+      transition: 0.5s;
+      margin-left: 10%;
+    }
+    #mask .header-nav {
+      display: block;
+      flex-wrap: wrap;
+      margin-top: 120px;
+    }
+    #mask .header-navlist {
+      width: 90%;
+      margin-top: 40px;
+    }
+    #mask .header-navitem a {
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 700;
+      padding-left: 40px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: left;
+      width: 276px;
+      color: var(--main-blue);
+      border-bottom: 1px solid var(--main-blue);
+      margin-right: 0;
+    }
+    #mask .info {
+      margin-top: 40px;
+      text-align: center;
+      width: 276px;
+      background-color: var(--main-yellow);
+      border-radius: 71px;
+      color: var(--main-white)!important;
+      line-height: 1;
+      padding: 12px 0;
+    }
+    #mask .info .tel {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.96px;
+    }
+    #mask .info .tel span {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.72px;
+    }
+    #mask .info .time {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.32px;
+    }
+    .header-sp {
+      display: none;
+    }
+    @media screen and (min-width: 961px) and (max-width: 1200px) {
+      .header-navitem > a {
+        margin-right: 0;
+      }
+    }
+    @media screen and (max-width: 960px) {
+      .header-pc {
+        display: none;
+      }
+      .header-sp {
+        display: block;
+      }
+      .header-logo {
+        width: 238px;
+        height: 90px;
+      }
+      .header-logo img {
+        width: 238px;
+        height: 90px;
+      }
+      .header-sp {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        background-color: var(--main-white);
+        /* box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.05); */
+      }
+      .no-scroll {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+      }
+      .open .header {
+        height: 100%;
+      }
+      #mask .header-nav {
+        width: 100%;
+        position: fixed;
+        opacity: 0;
+        z-index: 20;
+      }
+      .open #mask .header-nav {
+        left: 0;
+        opacity: 1;
+      }
+      .header-navlist {
+        align-items: center;
+        display: block;
+        margin: 0;
+      }
+      .header-navitem {
+        display: flex;
+        justify-content: center;
+      }
+      .header-navitem > a {
+        width: 150px;
+        font-size: 1.25em;
+        font-weight: 600;
+      }
+      .hamburger {
+        display: block;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        top: 15px;
+        right: 18px;
+        margin-top: 33px;
+        margin-right: 25px;
+        transition: 0.5s;
+        z-index: 20;
+      }
+      .hamburger span {
+        width: 40px;
+        height: 4px;
+        background-color: var(--main-black);
+        display: block;
+        left: 0;
+        transition: 0.5s;
+      }
+      .open .hamburger span {
+        background-color: var(--main-black);
+      }
+      .open .hamburger span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger span:nth-child(1) {
+        top: 0;
+        margin-top: 4px;
+      }
+      .hamburger span:nth-child(2) {
+        top: 20px;
+        margin-top: 8px;
+      }
+      .hamburger span:nth-child(3) {
+        bottom: 0;
+        margin-top: 8px;
+      }
+      .open .hamburger span:nth-child(1) {
+        transform: translateY(12px) rotate(-315deg);
+      }
+      .open .hamburger span:nth-child(3) {
+        transform: translateY(-12px) rotate(315deg);
+      }
+      .open #mask {
+        width: 90%;
+        height: 100%;
+        background-image: url(img/hero.png);
+        cursor: pointer;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        opacity: 1;
+        color: var(--main-blue);
+      }
+      #mask .header-nav {
+        display: flex;
+        justify-content: center;
+      }
+      body {
+        margin-top: 90px;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      .header-navitem > a {
+        width: 140px;
+        font-size: 1.1em;
+      }
+    }
+
+    /*
+    hero
+    */
+    .hero {
+      width: 100%;
+      height: 864px;
+      background-image: url(img/hero.png);
+    }
+    .hero h1 {
+      font-family: YuMincho, serif;
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      line-height: 1.5;
+    }
+    .hero h1 span {
+      display: block;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 0.96px;
+    }
+  </style>
+
+  <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="loading-screen">
+    <img src="img/logo-loading.png" alt="有限会社金子建設のロゴ" width="375" height="142" loading="lazy">
+  </div>
+
+  <script>
+    // ページのロードが完了したらローディング画面を非表示にする
+    window.addEventListener('load', function() {
+      const loadingScreen = document.getElementById('loading-screen');
+      const content = document.getElementById('main-content');
+
+      // ローディング画面を非表示にし、コンテンツを表示
+      loadingScreen.style.display = 'none';
+      document.body.style.marginTop = "120px";
+      content.style.display = 'block';
+    });
+  </script>
+
+  <div id="main-content" style="display: none;">
+
+  <header class="header">
+    <div class="inner">
+      <div class="header-pc">
+        <a href="#" class="header-logo">
+          <img src="img/header-logo.png" alt="有限会社金子建設のロゴ" width="317" height="120" loading="lazy">
+        </a>
+        <div class="right">
+          <nav class="header-nav">
+            <ul class="header-navlist">
+              <li class="header-navitem">
+                <a href="#corporate">企業理念</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#service">事業紹介</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#achievements">施工事例</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#company">会社案内</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="info">
+            <p class="tel"><span>TEL.</span> 0493-72-2076</p>
+            <p class="time">[受付時間]　平日 09:00~17:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner">
+      <div class="header-sp">
+        <a href="#" class="header-logo">
+          <img src="img/header-logo.png" alt="有限会社金子建設のロゴ" width="238" height="90" loading="lazy">
+        </a>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div id="mask">
+          <nav class="header-nav">
+            <img src="img/header-logo.png" alt="有限会社金子建設のロゴ" width="238" height="90" loading="lazy">
+            <ul class="header-navlist">
+              <li class="header-navitem">
+                <a href="#corporate">企業理念</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#service">事業紹介</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#achievements">施工事例</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#company">会社案内</a>
+              </li>
+            </ul>
+            <div class="info">
+              <p class="tel"><span>TEL.</span> 0493-72-2076</p>
+              <p class="time">[受付時間]　平日 09:00~17:00</p>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="hero">
+      <h1>力しごとを、<br class="d-sp">大きなことから、<br class="d-sp">身近なことまで。<span>小川町で、あなたのそばに。</span></h1>
+    </div>
+
+
+    <section id="corporate">
+      <div class="inner">
+        <div class="left">
+          <h2>地域に愛される企業</h2>
+          <p>
+            建設は、人の暮らしや、、地域社会の基盤を作る仕事です。<br>
+            多くの人たちに関係する仕事だからこそ、安全であり、信頼される仕事でなければなりません。<br>
+            <br>
+            そして、お客様、地域の方々、関係者の皆様、出来上がったものを利用する人たちに、笑顔に<br>
+            なってもらえる仕事を心がけます。<br>
+            <br>
+            これから先も、末永く輝く企業を目指して。<br>
+            <br>
+            多くの人から必要とされる活動にひたむきに取り組んでまいります。
+          </p>
+        </div>
+
+        <div class="right">
+          <svg width="596" height="331" viewBox="0 0 596 331" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 206.521C16 203.021 12 202.521 8.5 200.021C5.7 198.021 2.33333 186.521 1 181.021C4.83333 178.021 13.1 171.221 15.5 168.021C18.5 164.021 17.5 163.521 20.5 155.521C22.9 149.121 28.1667 147.855 30.5 148.021H46.5C56.5 148.021 60.5 145.021 73.5 129.021C86.5 113.021 93 113.021 95.5 112.021C98 111.021 114 112.521 116 111.021C118 109.521 129 97.0212 130 96.5212C131 96.0212 136.5 99.5212 139.5 99.5212C142.5 99.5212 149.5 93.5212 152 92.0212C154 90.8212 163.167 91.8545 167.5 92.5212C167.833 91.1878 168.8 87.6212 170 84.0212C171.5 79.5212 174 76.5212 175.5 74.0212L175.552 73.934C177.023 71.4845 178 69.8577 178 56.0212C178.4 46.4212 182.167 39.6878 184 37.5212C188.667 31.8545 199.8 18.4212 207 10.0212C216 -0.478777 219.5 1.5212 223 1.0212C226.5 0.521201 236 9.0212 238.5 10.0212C241 11.0212 256 11.5212 259 11.5212C262 11.5212 261.5 11.5212 277.5 19.0212C290.3 25.0212 300.833 25.1879 304.5 24.5212C304 24.5212 305.2 23.4212 314 19.0212C325 13.5212 333.5 18.5212 341.5 25.5212C349.5 32.5212 379 48.0212 389 49.0212C397 49.8212 409 48.6879 414 48.0212C417.333 46.8545 425.2 44.0212 430 42.0212C436 39.5212 438.5 40.5212 443 40.5212C446.6 40.5212 449.5 45.5212 450.5 48.0212C453.167 46.0212 459.6 41.2212 464 38.0212C469.5 34.0212 473 35.5212 476.5 37.0212C479.3 38.2212 487.333 37.8545 491 37.5212C490.833 39.3545 490.7 45.6212 491.5 56.0212C492.5 69.0212 495.5 77.0212 500 82.5212C504.5 88.0212 504.5 86.5212 506 94.5212C507.5 102.521 510 107.021 512.5 108.521C515 110.021 534 115.021 535 115.521C536 116.021 537.5 121.021 540 129.521C542.5 138.021 549 140.521 555 145.521C561 150.521 557 156.021 555.5 161.521C554 167.021 559.5 176.021 560.5 177.021C561.5 178.021 563 182.021 563 189.521C563 197.021 565.5 202.521 566.5 204.521C567.5 206.521 580 219.021 581.5 220.521C583 222.021 591.5 241.021 593 242.521C594.5 244.021 596 251.521 595.5 256.021C595 260.521 589 274.521 591.5 283.521C593.5 290.721 592.667 301.188 592 305.521C588.167 302.688 579.6 297.021 576 297.021C571.5 297.021 563 297.021 561 294.021C559 291.021 554.5 285.021 551.5 287.521C548.5 290.021 546.5 291.021 540 287.521C533.5 284.021 533 287.021 531.5 289.521C530 292.021 531.5 291.021 530.5 297.021C529.5 303.021 522 301.521 519 301.021C516 300.521 502.5 294.021 499 293.521C495.5 293.021 489 293.021 479 294.021C469 295.021 463 305.021 460.5 311.521C458 318.021 454.5 316.021 452 315.521C449.5 315.021 445.5 314.021 438.5 312.521C431.5 311.021 430 325.521 427.5 329.521C425 333.521 420.5 325.521 418.5 320.021C416.5 314.521 407 317.521 407 317.021C407 316.621 416.667 301.521 421.5 294.021C414.167 297.521 397.7 305.221 390.5 308.021C381.5 311.521 365 315.021 360.5 315.021C356 315.021 338.5 316.521 333 310.521C327.5 304.521 322.5 303.521 316.5 301.521C310.5 299.521 303.5 283.521 301 279.021C298.5 274.521 289.5 272.521 281 273.021C272.5 273.521 270 273.521 264.5 270.521C259 267.521 250.5 273.021 240.5 269.021C230.5 265.021 209.5 253.521 190 251.021C170.5 248.521 161 236.521 160.5 236.021C160 235.521 155.5 236.021 155 235.521C154.5 235.021 150 245.521 137 245.521C126.6 245.521 117.667 256.521 114.5 262.021C114.5 262.355 113.4 262.821 109 262.021C103.5 261.021 98.5 264.521 93.5 266.521C88.5 268.521 85 261.021 81 257.021C77 253.021 72 256.021 65.5 256.521C59 257.021 42.5 255.521 40.5 240.521C38.5 225.521 30 231.021 21.5 231.021C13 231.021 12 226.521 13.5 222.521C15 218.521 16 210.021 16 206.521Z" stroke="#2C2C2C" stroke-width="0.5"/>
+            <path d="M236 168.021V169.521H237L237.5 169.021H241L242.5 168.521H243.5L244.5 169.021L246 168.521V169.521L246.5 170.021H247.5V169.521L248.5 169.021V167.521L249.5 165.521L251.5 166.021H252H254L255 164.521V164.021L255.5 162.521L256.5 162.021V161.021L257 160.521L259.5 160.021V159.021L260 158.521V158.021L261.5 157.521L262.5 158.521H263H264V156.521L265 156.021L264.5 155.521V155.021V154.521L265 153.521L265.5 153.021L267 152.021L267.5 151.521L268 152.021H268.5L269.5 151.521H271L271.5 151.021L272 151.521L273 152.021H274H275H275.5H276L276.5 152.521H277L277.5 153.021L278.5 154.021H279L279.5 153.521H280L281 154.021L281.5 153.521H282H282.5L283 154.021L284 153.521H284.5H285L287.5 154.021L288 153.521L289 153.021L290.5 152.521L291 152.021L292.5 151.521L292 151.021H291.5H290.5L289 150.521L289.5 149.521L289 148.021L290 147.521L291 147.021L291.5 146.521V146.021L292 145.521L293 145.021L293.5 144.521L292.5 143.521L293.5 143.021L294 142.021L293.5 141.521H293L294 140.521H293L292 140.021L293 139.021V138.021V136.521H294L293.5 136.021V135.021L294 134.021H294.5L295 133.521L296.5 134.021H297L297.5 133.021L298.5 132.521V132.021L298 131.521L296.5 129.021L295.5 128.521L295 127.521V126.521L294.5 126.021L293.5 125.521L292 123.021L290.5 122.521L290 120.521L289 120.021V119.521L289.5 118.521L288.5 118.021L289.5 117.521L289 117.021L288.5 116.521V115.521L289 115.021H289.5V114.521L291 113.521L292 114.521H292.5L294 113.021V112.521V112.021L294.5 111.521L294 110.021L293.5 110.521L293 110.021V109.021H292.5L292 108.521H291L290 108.021H289V108.521L288.5 109.021L288 108.521L287.5 108.021V109.521H288V110.021L287.5 110.521L287 111.521H286.5V112.521H286L285.5 113.021L285 112.021L284 112.521V112.021H283L282.5 111.521L281.5 111.021L281 110.021L279 109.021L278 108.521V109.021L276.5 110.521H276L275 111.021L274 112.021V112.521L273 113.021L273.5 114.021L273 114.521L272 116.021H271.5L271 117.021L270 116.521V117.521H269V118.021L268.5 118.521H267.5L267 118.021L266 118.521H265.5L265 118.021L264 118.521V118.021L263.5 117.521V117.021V116.021L262.5 116.521H261H260.5L260 115.521L259 116.021H258H257H256.5V115.521H255L255.5 117.021H255L254.5 116.521L254 115.521V114.521L253.5 114.021H253H252L251.5 114.521V115.021L251 115.521L250.5 116.521H248L247.5 115.521H247L246.5 115.021H245L245.5 116.021H246L246.5 117.521L245.5 118.021V119.021L244.5 119.521L243.5 121.521L244.5 122.521L244 123.021H242L241.5 125.021H240.5V127.021L239.5 128.521L241 129.521H242L242.5 130.521H244V131.021H245L246 132.021L246.5 131.521H247L247.5 132.021H248.5L249.5 133.021H250.5L251 133.521H251.5L252 134.021H253L253.5 134.521H254.5V136.021L255 136.521L255.5 137.021L256.5 138.021V138.521L258.5 137.521H259L259.5 137.021L260 137.521H260.5L261 138.521V139.021L261.5 139.521V140.021H261L260.5 140.521L260 140.021L258.5 141.021V141.521H257.5L257 142.021H256L254.5 143.021H253H252V143.521V144.021L250 146.021L249 146.521L248 147.021L247.5 147.521L247 148.021L246.5 149.021L246 149.521L245 150.521H244L243 151.521L242 152.021V152.521L241 153.521L240.5 154.021H239.5L238 154.521H237.5H236.5L235.5 155.021H235L234 156.021L233.5 157.021V159.021L234.5 161.021V162.021L235 163.021V163.521L236 164.521V165.021L235.5 166.021L236 168.021Z" stroke="#2C2C2C" stroke-width="0.5"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="service">
+      <div class="inner">
+        <div class="title">
+          <h2>事業紹介</h2>
+          <p>作業はもちろん、必要な申請なども、トータルサポートします！</p>
+        </div>
+        <div class="services">
+          <div class="service">
+            <img src="img/service1.jpeg" alt="土木工事">
+            <div class="service-title">
+              <h3 data-num="01">土木工事</h3>
+              <h4>公共事業や所有地などの開発・整備</h4>
+            </div>
+            <p class="service-description">長年培ってきた技術を活かし、道路工事や河川改修工事、公園、施設整備や民間駐車場等、幅広いインフラ整備に対応しています。下水道工事、ガスの配管工事などもお任せください。</p>
+          </div>
+
+          <div class="service">
+            <img src="img/service2.jpeg" alt="建築リフォーム">
+            <div class="service-title">
+              <h3 data-num="02">建築リフォーム</h3>
+              <h4>個人邸宅、倉庫、工場、商業施設まで対応</h4>
+            </div>
+            <p class="service-description">
+              新築の家造りから、リフォーム、アフターメンテナンスまで、親身に対応します。<br>
+              各種工場や店舗、事務所等の新築や増改築、耐震・省エネ仕様等の改修・修繕もご相談ください。
+            </p>
+          </div>
+
+          <div class="service">
+            <img src="img/service3.jpeg" alt="外構工事">
+            <div class="service-title">
+              <h3 data-num="03">外構工事</h3>
+              <h4>お庭や家屋の外側の工事も規模を問わず対応</h4>
+            </div>
+            <p class="service-description">駐車場、カーポート、塀やフェンス、門扉・門柱、アプローチ、庭・植栽、ウッドデッキの設置工事など、お客様と理想のイメージを共有した上で、希望に添ったご提案をいたします。</p>
+          </div>
+
+          <div class="service">
+            <img src="img/service4.jpeg" alt="解体工事">
+            <div class="service-title">
+              <h3 data-num="04">解体工事</h3>
+              <h4>老朽化・相続問題などで依頼が増加中</h4>
+            </div>
+            <p class="service-description">
+              安全対策はもちろんのこと、近隣への粉塵や騒音の対策も徹底し、解体作業を行います。<br>
+              また、ご希望により、解体後の整地、敷地の見回り、雑草の刈り取り等まで安心してお任せ下さい。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="achievements">
+      <div class="inner">
+        <div class="left">
+          <h2>施工事例</h2>
+        </div>
+        <div class="right">
+          <div class="content">
+            <h3>信頼される技術で実現する安全な社会基盤</h3>
+            <p>インフラ整備や郊外地域の発展、防災インフラの強化を通じ、地域社会に安心と安全を提供しています。確かな技術力を持つ専門チームが、品質管理と安全対策を徹底し、持続可能な未来を支える社会基盤を構築します。地域の人々の暮らしを豊かにするため、私たちは常に挑戦し続けます。</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="fix">
+        <div class="slider-container">
+          <div class="slider">
+            <img src="img/achievements1.jpeg" width="720" height="540" alt="施工事例1" class="slider-image active">
+            <img src="img/achievements2.jpeg" width="720" height="540" alt="施工事例2" class="slider-image">
+            <img src="img/achievements3.jpeg" width="720" height="540" alt="施工事例3" class="slider-image">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <section id="company">
+      <div class="inner">
+        <div class="content">
+          <h2>会社案内</h2>
+          <div>
+            <ul>
+              <li>
+                <dl>
+                  <dt>会社名</dt>
+                  <dd>有限会社 金子建設</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>創業</dt>
+                  <dd>1966年</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>代表者</dt>
+                  <dd>金子 稔</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>所在地</dt>
+                  <dd>&#x3012;355-0327　埼玉県比企郡小川町腰越2326-1</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>電話番号</dt>
+                  <dd>0493-72-2076</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>資本金</dt>
+                  <dd>8000千円</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>従業員数</dt>
+                  <dd>◯名</dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>事業内容</dt>
+                  <dd>
+                    土木工事<br>
+                    建築工事<br>
+                    とび・土工工事<br>
+                    石工事<br>
+                    鋼構造物工事<br>
+                    舗装工事<br>
+                    しゅんせつ工事<br>
+                    水道施設工事
+                  </dd>
+                </dl>
+              </li>
+              <li>
+                <dl>
+                  <dt>建設業許可番号</dt>
+                  <dd>埼玉県知事許可　第005326号</dd>
+                </dl>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="paint"></div>
+
+        <div class="dot"></div>
+      </div><!-- inner -->
+    </section>
+
+
+    <div class="wrapper">
+      <section id="greeting">
+        <div class="inner">
+          <div class="title">
+            <h2>豊かな自然と暮らしを守る仕事を一緒にしませんか？</h2>
+          </div>
+          <div class="content">
+            <p class="description">
+              当社は、小川町の美しい自然と暮らしに寄り添って、長い実績を積み重ねてまいりました。<br>
+              近年、地球全体で、環境の保全と、持続可能な社会が重要な課題となっております。<br>
+              <br>
+              子供達へ、美しい自然を手渡していくためにも、建設業の持つ可能性を拡げていきたいと思います。<br>
+              そして、皆様が安全で、快適に暮らせるよう、街づくりにこれからも末永く貢献してまいります。<br>
+              <br>
+              社員一同、精進してまいりますので、より一層のご指導ご支援を賜りますようお願い申し上げます。
+            </p>
+            <p class="name">代表取締役　金子 稔</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="inner">
+          <div class="left">
+            <div class="content">
+              <h2>お問い合わせ</h2>
+              <p class="call">まずはお気軽にお電話ください。</p>
+              <p class="text">具体的な内容がまだ決まっていなくても大丈夫です。お客様のご要望を伺いながら、一緒に最適なプランを考えさせていただきます。</p>
+              <div class="info">
+                <p class="tel"><span>TEL.</span> 0493-72-2076</p>
+                <p class="time">[受付時間]　平日 09:00~17:00</p>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="content">
+              <h3>
+                こんなお困りごとは<br>
+                ありませんか？
+              </h3>
+              <div class="problems">
+                <div class="problem">
+                  <svg width="32" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.5 2.6665C9.14 2.6665 3.16666 8.63984 3.16666 15.9998C3.16666 23.3598 9.14 29.3332 16.5 29.3332C23.86 29.3332 29.8333 23.3598 29.8333 15.9998C29.8333 8.63984 23.86 2.6665 16.5 2.6665ZM16.5 26.6665C10.62 26.6665 5.83333 21.8798 5.83333 15.9998C5.83333 10.1198 10.62 5.33317 16.5 5.33317C22.38 5.33317 27.1667 10.1198 27.1667 15.9998C27.1667 21.8798 22.38 26.6665 16.5 26.6665ZM22.62 10.1065L13.8333 18.8932L10.38 15.4532L8.5 17.3332L13.8333 22.6665L24.5 11.9998L22.62 10.1065Z" fill="#F48C04"/>
+                  </svg>
+                  <p>古い建物を解体したい</p>
+                </div>
+                <div class="problem">
+                  <svg width="32" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.5 2.6665C9.14 2.6665 3.16666 8.63984 3.16666 15.9998C3.16666 23.3598 9.14 29.3332 16.5 29.3332C23.86 29.3332 29.8333 23.3598 29.8333 15.9998C29.8333 8.63984 23.86 2.6665 16.5 2.6665ZM16.5 26.6665C10.62 26.6665 5.83333 21.8798 5.83333 15.9998C5.83333 10.1198 10.62 5.33317 16.5 5.33317C22.38 5.33317 27.1667 10.1198 27.1667 15.9998C27.1667 21.8798 22.38 26.6665 16.5 26.6665ZM22.62 10.1065L13.8333 18.8932L10.38 15.4532L8.5 17.3332L13.8333 22.6665L24.5 11.9998L22.62 10.1065Z" fill="#F48C04"/>
+                  </svg>
+                  <p>防犯のためにフェンスをつけたい</p>
+                </div>
+                <div class="problem">
+                  <svg width="32" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.5 2.6665C9.14 2.6665 3.16666 8.63984 3.16666 15.9998C3.16666 23.3598 9.14 29.3332 16.5 29.3332C23.86 29.3332 29.8333 23.3598 29.8333 15.9998C29.8333 8.63984 23.86 2.6665 16.5 2.6665ZM16.5 26.6665C10.62 26.6665 5.83333 21.8798 5.83333 15.9998C5.83333 10.1198 10.62 5.33317 16.5 5.33317C22.38 5.33317 27.1667 10.1198 27.1667 15.9998C27.1667 21.8798 22.38 26.6665 16.5 26.6665ZM22.62 10.1065L13.8333 18.8932L10.38 15.4532L8.5 17.3332L13.8333 22.6665L24.5 11.9998L22.62 10.1065Z" fill="#F48C04"/>
+                  </svg>
+                  <p>駐車場を整備したい</p>
+                </div>
+                <div class="problem">
+                  <svg width="32" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.5 2.6665C9.14 2.6665 3.16666 8.63984 3.16666 15.9998C3.16666 23.3598 9.14 29.3332 16.5 29.3332C23.86 29.3332 29.8333 23.3598 29.8333 15.9998C29.8333 8.63984 23.86 2.6665 16.5 2.6665ZM16.5 26.6665C10.62 26.6665 5.83333 21.8798 5.83333 15.9998C5.83333 10.1198 10.62 5.33317 16.5 5.33317C22.38 5.33317 27.1667 10.1198 27.1667 15.9998C27.1667 21.8798 22.38 26.6665 16.5 26.6665ZM22.62 10.1065L13.8333 18.8932L10.38 15.4532L8.5 17.3332L13.8333 22.6665L24.5 11.9998L22.62 10.1065Z" fill="#F48C04"/>
+                  </svg>
+                  <p>倉庫を増築したい</p>
+                </div>
+                <div class="problem">
+                  <svg width="32" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.5 2.6665C9.14 2.6665 3.16666 8.63984 3.16666 15.9998C3.16666 23.3598 9.14 29.3332 16.5 29.3332C23.86 29.3332 29.8333 23.3598 29.8333 15.9998C29.8333 8.63984 23.86 2.6665 16.5 2.6665ZM16.5 26.6665C10.62 26.6665 5.83333 21.8798 5.83333 15.9998C5.83333 10.1198 10.62 5.33317 16.5 5.33317C22.38 5.33317 27.1667 10.1198 27.1667 15.9998C27.1667 21.8798 22.38 26.6665 16.5 26.6665ZM22.62 10.1065L13.8333 18.8932L10.38 15.4532L8.5 17.3332L13.8333 22.6665L24.5 11.9998L22.62 10.1065Z" fill="#F48C04"/>
+                  </svg>
+                  <p>地元で仕事を探している</p>
+                </div>
+              </div>
+            </div>
+          </div><!-- right -->
+        </div><!-- inner -->
+      </section>
+
+      <section id="anniversary">
+        <div class="inner">
+          <div class="left">
+            <p class="year">50<span>th</span></p>
+            <p class="since">SINCE.1966</p>
+          </div><!-- left -->
+          <div class="right">
+            <p class="pre">2016年に創業50周年を迎えました。</p>
+            <p class="next">これから先、50年も地域の皆様に必要とされる企業を目指します。</p>
+          </div>
+        </div><!-- inner -->
+      </section>
+    </div>
+
+
+  </main>
+
+  <footer>
+    <div class="inner">
+      <div class="content">
+        <img src="img/logo2.png" alt="">
+        <h2>力しごとを、<br class="d-sp">大きなことから、<br class="d-sp">身近なことまで。</h2>
+      </div>
+      <div class="info">
+        <p>&#x3012;355-0327　埼玉県比企郡小川町腰越2326-1</p>
+        <p>TEL：0493-72-2076 / FAX：0493-74-2717</p>
+      </div>
+      <div>
+        <ul class="list">
+          <li>
+            <a href="">企業理念</a>
+          </li>
+          <li>
+            <a href="">事業紹介</a>
+          </li>
+          <li>
+            <a href="">会社案内</a>
+          </li>
+          <li>
+            <a href="">沿革</a>
+          </li>
+          <li>
+            <a href="">代表挨拶</a>
+          </li>
+          <li>
+            <a href="">お問い合わせ</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p class="copyright">&copy;2024 kaneko-kensetu.com</p>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- main-content -->
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous" defer></script>
+  <script src="js/slider.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
