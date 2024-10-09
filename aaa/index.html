@@ -137,13 +137,13 @@
       font-weight: 500;
       border-bottom: 2px solid transparent;
       transition: border-bottom .25s;
-      margin-right: 54px;
     }
     .header-navitem > a:hover {
       border-bottom: 2px solid var(--main-blue);
     }
     .header .info {
       padding: 0 24px;
+      color: var(--main-black);
     }
     .header-pc .info .tel {
       font-size: 26px;
@@ -178,7 +178,7 @@
     }
     #mask .header-navlist {
       width: 90%;
-      margin-top: 40px;
+      margin-top: 20px;
     }
     #mask .header-navitem a {
       font-size: 20px;
@@ -221,12 +221,7 @@
     .header-sp {
       display: none;
     }
-    @media screen and (min-width: 961px) and (max-width: 1200px) {
-      .header-navitem > a {
-        margin-right: 0;
-      }
-    }
-    @media screen and (max-width: 960px) {
+    @media screen and (max-width: 1170px) {
       .header-pc {
         display: none;
       }
@@ -341,9 +336,6 @@
         display: flex;
         justify-content: center;
       }
-      body {
-        margin-top: 90px;
-      }
     }
     @media screen and (max-width: 600px) {
       .header-navitem > a {
@@ -366,13 +358,34 @@
       font-size: 40px;
       font-weight: 800;
       letter-spacing: 1.6px;
-      line-height: 1.5;
+      line-height: 2;
+      margin-top: 40px;
     }
     .hero h1 span {
       display: block;
       font-size: 24px;
       font-weight: 500;
       letter-spacing: 0.96px;
+    }
+    .hero .gif {
+      display: flex;
+      justify-content: center;
+      padding-top: 80px;
+    }
+    @media screen and (max-width: 768px) {
+      .hero {
+        height: 753px;
+      }
+      .hero h1 {
+        margin-top: 20px;
+      }
+      .hero .gif {
+        padding-top: 40px;
+      }
+      .hero .gif img {
+        width: 374px;
+        height: 357px;
+      }
     }
   </style>
 
@@ -383,19 +396,24 @@
 <body>
 
   <div id="loading-screen">
-    <img src="img/logo-loading.png" alt="有限会社金子建設のロゴ" width="375" height="142" loading="lazy">
+    <img src="img/logo-loading.png" alt="有限会社金子建設のロゴ" width="375" height="142">
   </div>
 
   <script>
-    // ページのロードが完了したらローディング画面を非表示にする
     window.addEventListener('load', function() {
       const loadingScreen = document.getElementById('loading-screen');
       const content = document.getElementById('main-content');
-
+    
       // ローディング画面を非表示にし、コンテンツを表示
       loadingScreen.style.display = 'none';
-      document.body.style.marginTop = "120px";
       content.style.display = 'block';
+    
+      // 画面幅が768px以下なら90px、それ以上なら120pxのマージンを適用
+      if (window.innerWidth <= 768) {
+        document.body.style.marginTop = "90px";
+      } else {
+        document.body.style.marginTop = "120px";
+      }
     });
   </script>
 
@@ -422,12 +440,18 @@
               <li class="header-navitem">
                 <a href="#company">会社案内</a>
               </li>
+              <li class="header-navitem">
+                <a href="#greeting">代表挨拶</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#contact">お問い合わせ</a>
+              </li>
             </ul>
           </nav>
-          <div class="info">
+          <a href="tel:0497722076" class="info">
             <p class="tel"><span>TEL.</span> 0493-72-2076</p>
             <p class="time">[受付時間]　平日 09:00~17:00</p>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -460,11 +484,17 @@
               <li class="header-navitem">
                 <a href="#company">会社案内</a>
               </li>
+              <li class="header-navitem">
+                <a href="#greeting">代表挨拶</a>
+              </li>
+              <li class="header-navitem">
+                <a href="#contact">お問い合わせ</a>
+              </li>
             </ul>
-            <div class="info">
+            <a href="tel:0497722076" class="info">
               <p class="tel"><span>TEL.</span> 0493-72-2076</p>
               <p class="time">[受付時間]　平日 09:00~17:00</p>
-            </div>
+            </a>
           </nav>
         </div>
       </div>
@@ -474,6 +504,9 @@
   <main>
 
     <div class="hero">
+      <div class="gif">
+        <img src="img/first-view.gif" alt="有限会社金子建設の動画" width="584" height="557">
+      </div>
       <h1>力しごとを、<br class="d-sp">大きなことから、<br class="d-sp">身近なことまで。<span>小川町で、あなたのそばに。</span></h1>
     </div>
 
@@ -692,10 +725,10 @@
               <h2>お問い合わせ</h2>
               <p class="call">まずはお気軽にお電話ください。</p>
               <p class="text">具体的な内容がまだ決まっていなくても大丈夫です。お客様のご要望を伺いながら、一緒に最適なプランを考えさせていただきます。</p>
-              <div class="info">
+              <a href="tel:0497722076" class="info">
                 <p class="tel"><span>TEL.</span> 0493-72-2076</p>
                 <p class="time">[受付時間]　平日 09:00~17:00</p>
-              </div>
+              </a>
             </div>
           </div>
           <div class="right">
@@ -753,6 +786,7 @@
           </div>
         </div><!-- inner -->
       </section>
+
     </div>
 
 
@@ -771,22 +805,22 @@
       <div>
         <ul class="list">
           <li>
-            <a href="">企業理念</a>
+            <a href="#corporate">企業理念</a>
           </li>
           <li>
-            <a href="">事業紹介</a>
+            <a href="#service">事業紹介</a>
           </li>
           <li>
-            <a href="">会社案内</a>
+            <a href="#achievements">施工事例</a>
           </li>
           <li>
-            <a href="">沿革</a>
+            <a href="#company">会社案内</a>
           </li>
           <li>
-            <a href="">代表挨拶</a>
+            <a href="#greeting">代表挨拶</a>
           </li>
           <li>
-            <a href="">お問い合わせ</a>
+            <a href="#contact">お問い合わせ</a>
           </li>
         </ul>
       </div>
